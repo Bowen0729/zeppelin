@@ -67,7 +67,6 @@ import org.apache.zeppelin.rest.AbstractTestRestApi;
 import org.apache.zeppelin.scheduler.Job;
 import org.apache.zeppelin.service.ConfigurationService;
 import org.apache.zeppelin.service.NotebookService;
-import org.apache.zeppelin.service.ServiceContext;
 import org.apache.zeppelin.user.AuthenticationInfo;
 import org.apache.zeppelin.utils.TestUtils;
 import org.junit.AfterClass;
@@ -433,10 +432,9 @@ public class NotebookServerTest extends AbstractTestRestApi {
         "{}}}}";
     Message messageReceived = notebookServer.deserializeMessage(msg);
     Note note = null;
-    ServiceContext context = new ServiceContext(AuthenticationInfo.ANONYMOUS, new HashSet<>());
     try {
       try {
-        note = notebookServer.importNote(null, context, messageReceived);
+        note = notebookServer.importNote(null, messageReceived);
       } catch (NullPointerException e) {
         //broadcastNoteList(); failed nothing to worry.
         LOG.error("Exception in NotebookServerTest while testImportNotebook, failed nothing to " +
@@ -461,10 +459,9 @@ public class NotebookServerTest extends AbstractTestRestApi {
             "{\"note\": " + jupyterNoteJson + "}}";
     Message messageReceived = notebookServer.deserializeMessage(msg);
     Note note = null;
-    ServiceContext context = new ServiceContext(AuthenticationInfo.ANONYMOUS, new HashSet<>());
     try {
       try {
-        note = notebookServer.importNote(null, context, messageReceived);
+        note = notebookServer.importNote(null, messageReceived);
       } catch (NullPointerException e) {
         //broadcastNoteList(); failed nothing to worry.
         LOG.error("Exception in NotebookServerTest while testImportJupyterNote, failed nothing to " +
@@ -652,9 +649,8 @@ public class NotebookServerTest extends AbstractTestRestApi {
         "{}}}}";
     Message messageReceived = notebookServer.deserializeMessage(msg);
     Note note = null;
-    ServiceContext context = new ServiceContext(AuthenticationInfo.ANONYMOUS, new HashSet<>());
     try {
-      note = notebookServer.importNote(null, context, messageReceived);
+      note = notebookServer.importNote(null, messageReceived);
     } catch (NullPointerException e) {
       //broadcastNoteList(); failed nothing to worry.
       LOG.error("Exception in NotebookServerTest while testImportNotebook, failed nothing to " +

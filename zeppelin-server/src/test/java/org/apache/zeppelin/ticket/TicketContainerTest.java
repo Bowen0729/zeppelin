@@ -38,8 +38,8 @@ public class TicketContainerTest {
 
   @Test
   public void isValidExistingPrincipal() {
-    TicketContainer.Entry ticket = container.getTicketEntry("someuser1", null);
-    boolean ok = container.isValid("someuser1", ticket.getTicket());
+    String ticket = container.getTicket("someuser1");
+    boolean ok = container.isValid("someuser1", ticket);
     assertTrue(ok);
   }
 
@@ -51,8 +51,8 @@ public class TicketContainerTest {
 
   @Test
   public void isValidunkownTicket() {
-    TicketContainer.Entry ticketEntry = container.getTicketEntry("someuser2", null);
-    boolean ok = container.isValid("someuser2", ticketEntry.getTicket() + "makeitinvalid");
+    String ticket = container.getTicket("someuser2");
+    boolean ok = container.isValid("someuser2", ticket + "makeitinvalid");
     assertFalse(ok);
   }
 }

@@ -192,13 +192,12 @@ public class LoginRestApi {
 
       Set<String> roles = authenticationService.getAssociatedRoles();
       String principal = authenticationService.getPrincipal();
-      TicketContainer.Entry ticketEntry = "anonymous".equals(principal) ?
-              TicketContainer.ANONYMOUS_ENTRY : TicketContainer.instance.getTicketEntry(principal, roles);
+      String ticket = "anonymous".equals(principal) ? "anonymous" : TicketContainer.instance.getTicket(principal);
 
       Map<String, String> data = new HashMap<>();
-      data.put("principal", ticketEntry.getPrincipal());
-      data.put("roles", GSON.toJson(ticketEntry.getRoles()));
-      data.put("ticket", ticketEntry.getTicket());
+      data.put("principal", principal);
+      data.put("roles", GSON.toJson(roles));
+      data.put("ticket", ticket);
 
       response = new JsonResponse<>(Status.OK, "", data);
       // if no exception, that's it, we're done!
